@@ -27,15 +27,53 @@ function genererContenu() {
     // On écrit du texte dans ce titre : le titre de la case + un espace + le numéro (ex. "Titre par défaut 1")
     nouveauTitre.textContent = titre + " " + i;
 
+    // On ajoute l'attribut monId avec la valeur "Id" + i (ex. "Id0", "Id1")
+    nouveauTitre.setAttribute("monId", "Id" + i);
+
+    let nouveauAside = document.createElement("aside");
+    nouveauAside.textContent = "Plus de détails a propos de " + i;
+
+    nouveauTitre.addEventListener("mousedown", function (event){
+
+      // On range cet élément dans une variable (comme dans le cours)
+      let currentHeader = event.target;
+
+      console.log(event)
+      console.log(currentHeader);
+
+
+      // c. On affiche l'attribut monId de l'élément cliqué
+      console.log(currentHeader.getAttribute("monId"));
+      
+      if ( currentHeader.style.backgroundColor == "gray"){
+        currentHeader.style.backgroundColor = "white";
+      }
+      else {
+        currentHeader.style.backgroundColor = "gray";
+      }
+    });
+
+    // NOUVEAU : quand la souris ENTRE sur le titre, on ajoute la classe "show" à l'aside
+    nouveauTitre.addEventListener("mouseenter", function (event) {
+      nouveauAside.classList.add("show");
+    });
+
+    // NOUVEAU : quand la souris SORT du titre, on retire la classe "show" de l'aside
+    nouveauTitre.addEventListener("mouseleave", function (event) {
+      nouveauAside.classList.remove("show");
+    });
+
     // On crée un nouveau paragraphe <p> (pas encore visible non plus)
     let nouveauParagraphe = document.createElement("p");
 
     // On écrit dans ce paragraphe le texte de la case "Texte"
-    nouveauParagraphe.textContent = texte;
+    nouveauParagraphe.textContent = texte + " " + i;
 
     // On place le titre dans la boîte demo : il apparaît à l'écran
     demo.appendChild(nouveauTitre);
 
+    demo.appendChild(nouveauAside);
+    
     // On place le paragraphe dans la boîte demo, juste après le titre
     demo.appendChild(nouveauParagraphe);
 
